@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/header.ejs') %> 
+<body>
+    <div class="create-blog content">
+        <form action="/blogs" method = "POST">
+            <label for="title">Blog title</label>
+            <input type="text" id="title" required name="title">
+            <label for="snippet">Blog Snippet</label>
+            <input type="text" id="snippet" required name="snippet">
+            <label for="body">Blog body</label>
+            <textarea id="body" required name="body"></textarea>
+            <button>Submit</button>
+        </form>
+    </div>
+</body>
+
+<!-- <script>
+    const user_email1 = document.querySelector('.user_email') ;
+    const title1 = document.getElementById("title") ;
+    const snippet1 = document.getElementById("snippet") ;
+    const body1 = document.getElementById("body") ;
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault() ;
+        
+
+    })
+</script> -->
+</html>

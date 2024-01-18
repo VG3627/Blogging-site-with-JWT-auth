@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/header.ejs') %> 
+<body>
+    <div class="details content">
+        <h2><%= blog.title %> </h2>
+        <div class="content">
+            <p><%= blog.body %> </p>
+        </div>
+        <% if(user) {%>
+        <% if(blog.authorMail === user.email){ %>
+        <a class="delete" data-doc="<%=blog._id%> ">Delete</a>
+        <% } %>
+        <% } %>
+    </div>
+    <script>
+        const del = document.querySelector('a.delete') ;
+        del.addEventListener('click', (e) => {
+           const endpoint = `/blogs/${del.dataset.doc}` ;
+
+           fetch(endpoint, {
+            method : 'DELETE',
+           })
+           .then((response) => { return response.json()}) // we have to use return when using curly brackets
+           .then((data) => window.location.href = data.redirect) 
+           .catch((error)=>{
+            console.log(error) ;
+           })
+        })
+    </script>
+</body>
+</html>
