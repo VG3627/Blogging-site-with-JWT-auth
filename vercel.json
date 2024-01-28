@@ -2,14 +2,14 @@
 {
   "builds": [
       {
-          "src": "blogs.ejs",
+          "src": "index.js",
           "use": "@vercel/node"
       }
   ],
   "routes": [
       {
         "src": "/(.*)",
-        "dest": "blogs.ejs"
+        "dest": "/"
       }
   ]
 }
