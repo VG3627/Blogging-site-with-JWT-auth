@@ -17,10 +17,11 @@ app.use(express.urlencoded({extended:true})) ;
 app.use(express.json());
 // app.use(cookieParser);
 
-const dburl = 'mongodb+srv://vipul1:Test1234@nodetut.tqrfbx6.mongodb.net/Blog-auth?retryWrites=true&w=majority' ;
-
+// const dburl = 'mongodb+srv://vipul1:Test1234@nodetut.tqrfbx6.mongodb.net/Blog-auth?retryWrites=true&w=majority' ;
+const dburl = process.env.MONGO_DB_URL ;
 mongoose.set('strictQuery',true) ;
 
+const port = process.env.PORT || 3069;
 mongoose.connect(dburl) 
 .then((result) => app.listen(3069)) // we want to listen for  after server is connected to mongodb
 .catch((error) => console.log(error)) ;
