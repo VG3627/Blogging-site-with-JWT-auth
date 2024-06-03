@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express') ;
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser')
@@ -10,8 +11,14 @@ const blogRoutes = require('./routes/blogRoutes');
 const app = express() 
 
 app.use(cookieParser()) 
-app.use(express.static('public'))
+// app.use(express.static('public'))
+// // app.set('views', './views');
+// app.set('view engine','ejs')
+
+// app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')));
 // app.set('views', './views');
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine','ejs')
 
 app.use(express.urlencoded({extended:true})) ;
