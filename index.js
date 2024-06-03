@@ -12,10 +12,7 @@ const app = express()
 
 app.use(cookieParser()) 
 // app.use(express.static('public'))
-// // app.set('views', './views');
-// app.set('view engine','ejs')
 
-// app.use(express.static('public'))
 app.use(express.static(path.join(__dirname, 'public')));
 // app.set('views', './views');
 app.set('views', path.join(__dirname, 'views'));
@@ -26,12 +23,11 @@ app.use(express.json());
 // app.use(cookieParser);
 
 // const dburl = 'mongodb+srv://vipul1:Test1234@nodetut.tqrfbx6.mongodb.net/Blog-auth?retryWrites=true&w=majority' ;
-const dburl = process.env.MONGO_DB_URL ;
+const dburl = process.env.MONGO_URI ;
 mongoose.set('strictQuery',true) ;
-
-const port = process.env.PORT || 3069;
+const port = process.env.PORT || 8080;
 mongoose.connect(dburl) 
-.then((result) => app.listen(3069)) // we want to listen for  after server is connected to mongodb
+.then((result) => app.listen(port)) // we want to listen for  after server is connected to mongodb
 .catch((error) => console.log(error)) ;
 
 app.get('/',(req,res)=>{
@@ -58,8 +54,9 @@ app.use(authRoutes);
 //     const cookies = req.cookies ;
 //     console.log(cookies) ;
 //     res.json(cookies) ;
-// }) ;
+// }) ; 
 
+//  { "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
 
 
 
