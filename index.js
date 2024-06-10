@@ -2,7 +2,8 @@ const path = require('path');
 const express = require('express') ;
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser')
-const cors = require('cors')
+const cors = require('cors');
+const Blog = require('../models/blog.js') ;
 require('dotenv').config();
 
 
@@ -10,7 +11,6 @@ const authRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 
 const app = express() 
-
 app.use(cors())
 app.use(cookieParser()) 
 // app.use(express.static('public'))
@@ -35,6 +35,15 @@ mongoose.connect(dburl)
 app.get('/',(req,res)=>{
     res.redirect('/blogs') ;
 })
+
+app.get('/api/blogs', async (req, res) => {
+    try {
+      const blogs = await Blog.find({});
+      res.json(blogs);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to retrieve items' });
+    }
+  });
 
 app.use(blogRoutes);
 app.use(authRoutes);
