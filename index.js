@@ -45,6 +45,16 @@ app.get('/api/blogs', async (req, res) => {
     }
   });
 
+app.get('/api/blogs/:id', async (req, res) => {
+    const id = req.params.id ;
+    try{
+      const blogs = await Blog.findById(id);
+      res.json(blogs);
+    } catch {
+      res.status(500).json({ error: 'Failed to retrieve items' });
+    }
+  });
+
 app.use(blogRoutes);
 app.use(authRoutes);
 
