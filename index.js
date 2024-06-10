@@ -3,7 +3,7 @@ const express = require('express') ;
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser')
 const cors = require('cors');
-// const Blog = require('models\blog.js') ;
+const Blog = require('./models/blog.js') ;
 require('dotenv').config();
 
 
@@ -27,7 +27,7 @@ app.use(express.json());
 // const dburl = 'mongodb+srv://vipul1:Test1234@nodetut.tqrfbx6.mongodb.net/Blog-auth?retryWrites=true&w=majority' ;
 const dburl = process.env.MONGO_URI ;
 mongoose.set('strictQuery',true) ;
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3069;
 mongoose.connect(dburl) 
 .then((result) => app.listen(port)) // we want to listen for  after server is connected to mongodb
 .catch((error) => console.log(error)) ;
@@ -36,14 +36,14 @@ app.get('/',(req,res)=>{
     res.redirect('/blogs') ;
 })
 
-// app.get('/api/blogs', async (req, res) => {
-//     try {
-//       const blogs = await Blog.find({});
-//       res.json(blogs);
-//     } catch (error) {
-//       res.status(500).json({ error: 'Failed to retrieve items' });
-//     }
-//   });
+app.get('/api/blogs', async (req, res) => {
+    try {
+      const blogs = await Blog.find({});
+      res.json(blogs);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to retrieve items' });
+    }
+  });
 
 app.use(blogRoutes);
 app.use(authRoutes);
